@@ -3,10 +3,15 @@ Aglorithm Visualization
 Algorithm class combined with Python Algorithm course becomes a visualization project of the studied algorithms.
 
 Files:
+
 algo_vis.py - Main code to run the project.
+
 draw_graph.py - Draws the graph and has the core functions for the visualization.
+
 bfs_algo.py - Has the BFS algorithm.
+
 dfs_algo.py - Has the DFS algorithm.
+
 top_sort.py - Has the Topological sort algorithm.
 
 DFS Visualization

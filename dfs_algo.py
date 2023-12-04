@@ -1,3 +1,7 @@
+# DFS Algorithm (Depth First Search)
+# BigO - O(v+e)
+# Storage - O(v+e)
+
 def order_dfs(graph, start_node, visited=None):
     if visited is None:
         visited = set()

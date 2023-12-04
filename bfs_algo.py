@@ -1,3 +1,7 @@
+# BFS Algorithm (Breadth First Search)
+# BigO - O(v+e)
+# Storage - O(v+e)
+
 import queue
 
 def order_bfs(graph, start_node):

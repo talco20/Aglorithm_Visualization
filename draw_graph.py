@@ -1,4 +1,5 @@
 import random
+from matplotlib.lines import Line2D
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, PillowWriter
@@ -15,6 +16,12 @@ def update(frame, order, G, pos, visited, ax1, ax2):
     node_colors = ['cyan' if n in visited else 'g' for n in G.nodes]
     nx.draw(G, pos, with_labels=True, node_color=node_colors, edge_color='gray', ax=ax1)
     ax1.set_title('Graph')
+
+    # Add a legend to ax1
+    ax1.legend(handles=[
+        Line2D([0], [0], marker='o', color='w', markerfacecolor='cyan', markersize=10, label='Visited Node'),
+        Line2D([0], [0], marker='o', color='w', markerfacecolor='green', markersize=10, label='Unvisited Node')
+    ], loc='upper right', bbox_to_anchor=(1.0, 1.0))
 
     # Update the bar chart
     visited_counts = {node: order.index(node) + 1 for node in string.ascii_uppercase if node in order}
@@ -47,7 +54,7 @@ def visualize_search(order, title, G, pos, visited):
     animation = FuncAnimation(fig, update, frames=len(order), fargs=(order, G, pos, visited, ax1, ax2), interval=200, repeat=False)
     
     # Save the animation to a gif
-    #animation.save(f"{title}.gif", dpi=300, writer='pillow', fps=3)
+    animation.save(f"{title}.gif", dpi=300, writer='pillow', fps=3)
     plt.show()
 
 # Randomize the creation of edges
@@ -58,6 +65,30 @@ def add_edges_rand(num):
         add_edges.append(edge)
     return add_edges
 
+# Randomize the creation of edges to create a Directed Acyclic Graph (DAG)
+def add_edges_dag(num_edges):
+    # Create an empty directed graph
+    G = nx.DiGraph()
+
+    # Generate a list of uppercase letters as nodes
+    nodes = list(string.ascii_uppercase)
+
+    # Randomly shuffle the nodes
+    random.shuffle(nodes)
+
+    # Add edges to the graph while ensuring it remains a DAG
+    for i in range(min(num_edges, len(nodes) - 1)):
+        # Determine the number of outgoing edges for the current node
+        num_outgoing_edges = random.randint(1, min(3, len(nodes) - i - 1))
+
+        # Add outgoing edges from the current node
+        for j in range(num_outgoing_edges):
+            next_node_index = i + 1 + random.randint(0, len(nodes) - i - 2)
+            G.add_edge(nodes[i], nodes[next_node_index])
+
+    return G
+
+# Returns the starting node of the graph
 def get_start_node(graph):
     try:
         first_edge = next(iter(graph.edges))

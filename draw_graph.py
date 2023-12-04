@@ -53,8 +53,8 @@ def visualize_search(order, title, G, pos, visited):
     
     animation = FuncAnimation(fig, update, frames=len(order), fargs=(order, G, pos, visited, ax1, ax2), interval=200, repeat=False)
     
-    # Save the animation to a gif
-    animation.save(f"{title}.gif", dpi=300, writer='pillow', fps=3)
+    # Delete the comment from the line below to save the animation as a gif
+    #animation.save(f"{title}.gif", dpi=300, writer='pillow', fps=3)
     plt.show()
 
 # Randomize the creation of edges

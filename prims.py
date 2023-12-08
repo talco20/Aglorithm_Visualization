@@ -19,7 +19,7 @@ def create_weighted_graph(num_nodes, num_edges):
 def visualize_prim(graph, edges, node_colors, title="Prim's Algorithm"):
     pos = nx.spring_layout(graph)
 
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 8), gridspec_kw={'height_ratios': [3, 1]})
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 8), gridspec_kw={'height_ratios': [5, 1]})
     fig.suptitle(title, fontsize=20, style='oblique')
 
     visited_data = []  # List to store visited nodes and their total weight
@@ -38,8 +38,18 @@ def visualize_prim(graph, edges, node_colors, title="Prim's Algorithm"):
         # Draw all edges in green
         nx.draw(graph, pos, with_labels=True, font_weight='bold', ax=ax1, node_color=list(node_colors.values()))
 
-        edge_labels = nx.get_edge_attributes(graph, "weight")
-        nx.draw_networkx_edge_labels(graph, pos, edge_labels)
+        nx.draw_networkx_edges(graph, pos, edgelist=graph.edges(), edge_color='green', width=2)
+
+
+       # Add edge labels
+        edge_labels = nx.get_edge_attributes(graph, 'weight')
+        #print("edge_labels", edge_labels)
+        nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels)
+
+        # Draw red edges for all visited edges
+        for i in range(frame + 1):
+            edge = mst_edges[i]
+            nx.draw_networkx_edges(graph, pos, edgelist=[(edge[1], edge[2])], edge_color='r', width=2)
 
         visited_order_set = set()  # Initialize a set to track unique visited nodes
         total_weight = 0  # Initialize total weight
@@ -47,30 +57,33 @@ def visualize_prim(graph, edges, node_colors, title="Prim's Algorithm"):
         # Create a dictionary to store cumulative weight for each node
         cumulative_weight = {node: 0 for node in graph.nodes}
 
-        # Draw red edges for all visited edges
+        # Draw red edges for all visited edges and add edge labels
         for i in range(frame + 1):
             edge = mst_edges[i]
-            nx.draw_networkx_edges(graph, pos, edgelist=[(edge[1], edge[2])], edge_color='r', width=2)
 
             # Update visited order set
             visited_order_set.add(edge[1])
             visited_order_set.add(edge[2])
 
             # Update cumulative weight
-            cumulative_weight[edge[1]] += edge[0]
-            cumulative_weight[edge[2]] += edge[0]
+            total_weight += edge[0]
+            cumulative_weight[edge[1]] += total_weight
+            cumulative_weight[edge[2]] += total_weight
+
+            # Add edge label
+            #label_pos = (pos[edge[1]][0] + pos[edge[2]][0]) / 2, (pos[edge[1]][1] + pos[edge[2]][1]) / 2
+            #ax1.text(label_pos[0], label_pos[1], str(edge[0]), color='black', fontweight='bold', ha='center', va='center')
 
         # Draw nodes with cyan color
         nx.draw_networkx_nodes(graph, pos, node_color=[node_colors[node] if node not in visited_order_set else 'cyan' for node in graph.nodes], node_size=700)
 
         # Add the visited data to the list
         visited_data.append((list(visited_order_set), cumulative_weight.copy()))
-        
+
         # Draw the bar chart on ax2
         ax2.clear()
         unique_nodes = []  # Keep track of unique nodes
         current_x = 0
-
         for nodes, cumulative_weight in visited_data:
             for node in nodes:
                 if node not in unique_nodes:
@@ -79,7 +92,6 @@ def visualize_prim(graph, edges, node_colors, title="Prim's Algorithm"):
                     # Add label inside the bar with both the letter and cumulative weight
                     ax2.text(current_x + 0.5, 0, f"{node}\n{cumulative_weight[node]}", ha='center', va='center', color='white')
                     current_x += 1  # Move to the next "letter block"
-                    print(cumulative_weight[node])
 
         ax2.set_title('Visited Nodes Order')
         ax2.set_xlabel('Visit Order')
@@ -88,7 +100,7 @@ def visualize_prim(graph, edges, node_colors, title="Prim's Algorithm"):
         ax2.set_facecolor((0.9, 0.9, 0.9))  # Set the background color of the bar chart
 
 
-    animation = FuncAnimation(fig, update, fargs=(edges, ax1, ax2), frames=len(edges), interval=600, repeat=False)
+    animation = FuncAnimation(fig, update, fargs=(edges, ax1, ax2), frames=len(edges), interval=400, repeat=False)
     plt.show()
 
 

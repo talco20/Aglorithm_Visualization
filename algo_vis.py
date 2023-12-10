@@ -2,6 +2,7 @@ from dfs_algo import *
 from bfs_algo import *
 from top_sort import *
 from draw_graph import *  
+from mst_builder_and_vis import *
 from prims_only_graph import * 
 from kruskal_algo import *
     
@@ -30,7 +31,6 @@ def choose_graph_size(G, default_edges, type):
                         dag_default_edges = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('B', 'E'), ('C', 'F'), ('C', 'G'), ('E', 'G'),
                                              ('B', 'F'), ('C', 'F'), ('B', 'H')]
                         G.add_edges_from(dag_default_edges)
-                        #G = add_edges_dag(10)
         else:
             G.add_edges_from(default_edges)
     return G
@@ -122,7 +122,6 @@ def search_and_visualize():
         print("The graph's specs:", DAG)
     else:     
         print("The graph's specs:", G)
-    
     
     print("******************************************************************************************************************")
     

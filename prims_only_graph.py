@@ -1,3 +1,7 @@
+# Prim's Algorithm 
+# BigO - O(v^2)
+# Storage - O(v+e)
+
 from mst_builder_and_vis import *
 
 def prim_algorithm(graph):

@@ -1,3 +1,7 @@
+# Kruskal's Algorithm 
+# BigO - O(e log v)
+# Storage - O(e+v)
+
 def kruskal_algorithm(graph):
     mst_edges = []
     visited_nodes = set()

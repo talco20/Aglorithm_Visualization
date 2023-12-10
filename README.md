@@ -14,6 +14,12 @@ dfs_algo.py - Has the DFS algorithm.
 
 top_sort.py - Has the Topological sort algorithm.
 
+mst_builder_and_vis.py - Builds and visualize mst kind of searches.
+
+prim_only_graph.py - Has the Prim's algorithm.
+
+kruskal_algo.py - Has the Kruskal's algorithm.
+
 DFS Visualization
 ![DFS Visualization](https://github.com/talco20/Algorithm_Visualization/blob/main/DFS%20Visualization.gif)
 
@@ -23,4 +29,9 @@ BFS Visualization
 Topological Sort Vizualization
 ![Topological Sort](https://github.com/talco20/Algorithm_Visualization/blob/main/Topological%20Sort.gif)
 
+Prim's algorithm Visualization
+![Prim's Algorithm](https://github.com/talco20/Algorithm_Visualization/blob/main/Prim's%20Algorithm.gif)
+
+Kruskal's algorithm Visualization
+![Kruskal's Algorithm](https://github.com/talco20/Algorithm_Visualization/blob/main/Kruskal's%20Algorithm.gif)
 

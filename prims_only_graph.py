@@ -16,7 +16,7 @@ def create_weighted_graph(num_nodes, num_edges):
     
     return G
 
-def visualize_prim(graph, edges, node_colors, title="Prim's Algorithm"):
+def visualize_prim(graph, edges, node_colors, title):
     
     fig, ax = plt.subplots(figsize=(6, 6))
     fig.suptitle(title, fontsize=16)
@@ -78,7 +78,7 @@ def visualize_prim(graph, edges, node_colors, title="Prim's Algorithm"):
             for node in nodes:
                 if node not in unique_nodes:
                     unique_nodes.append(node)
-                    ax.text(current_x, -1, f"{node}\n{cumulative_weight[node]}", ha='left', va='bottom', color='blue')
+                    ax.text(current_x, -1.2, f"{node}\n{cumulative_weight[node]}", ha='left', va='bottom', color='blue')
                     current_x += 0.13
 
     animation = FuncAnimation(fig, update, fargs=(edges,), frames=len(edges), interval=300, repeat=False)
@@ -128,12 +128,12 @@ def prim_algorithm(graph):
     return mst_edges, node_colors
 
 # Example usage:
-num_nodes = 15
-num_edges = 35
-print("START")
-weighted_graph = create_weighted_graph(num_nodes, num_edges)
+#num_nodes = 15
+#num_edges = 35
+#print("START")
+#weighted_graph = create_weighted_graph(num_nodes, num_edges)
 #print("MID")
-minimum_spanning_tree, node_colors = prim_algorithm(weighted_graph)
+#minimum_spanning_tree, node_colors = prim_algorithm(weighted_graph)
 #print("Minimum Spanning Tree:", minimum_spanning_tree)
-visualize_prim(weighted_graph, minimum_spanning_tree, node_colors)
-print("DONE")
+#visualize_prim(weighted_graph, minimum_spanning_tree, node_colors)
+#print("DONE")

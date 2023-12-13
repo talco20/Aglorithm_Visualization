@@ -1,3 +1,7 @@
+# Dijkstra's Algorithm 
+# BigO - O(v^2)
+# Storage - O(v + e log v)
+
 import heapq
 from mst_builder_and_vis import *
 

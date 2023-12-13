@@ -20,6 +20,8 @@ prim_only_graph.py - Has the Prim's algorithm.
 
 kruskal_algo.py - Has the Kruskal's algorithm.
 
+dijkstra_algo.py - Has the Dijksra's algorithm.
+
 DFS Visualization
 ![DFS Visualization](https://github.com/talco20/Algorithm_Visualization/blob/main/DFS%20Visualization.gif)
 
@@ -34,4 +36,8 @@ Prim's algorithm Visualization
 
 Kruskal's algorithm Visualization
 ![Kruskal's Algorithm](https://github.com/talco20/Algorithm_Visualization/blob/main/Kruskal's%20Algorithm.gif)
+
+Dijkstra's algorithm Visualization
+![Dijkstra's Algorithm](https://github.com/talco20/Algorithm_Visualization/blob/main/Dijkstra's%20Algorithm.gif)
+
 

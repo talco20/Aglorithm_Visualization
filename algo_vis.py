@@ -5,6 +5,7 @@ from draw_graph import *
 from mst_builder_and_vis import *
 from prims_only_graph import * 
 from kruskal_algo import *
+from dijkstra_algo import *
     
 def choose_graph_size(G, default_edges, type):
     search_size = input("If you want a small graph, enter S; for a big graph, enter B: ").upper()
@@ -61,7 +62,7 @@ def search_and_visualize():
     default_edges = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('B', 'E'), ('C', 'F'), ('C', 'G'), ('F', 'G'), ('E', 'G'),
                      ('B', 'G'), ('C', 'F'), ('B', 'H')]
     
-    search_type = input("Choose search type (BFS or DFS or TOP or PRIM or KRUSKAL): ").upper()
+    search_type = input("Choose search type (BFS or DFS or TOP or PRIM or KRUSKAL or DIJKSTRA[DIJ]): ").upper()
 
     if search_type == 'BFS':
         G = nx.Graph()
@@ -96,7 +97,7 @@ def search_and_visualize():
         visualize_search(order, 'Topological Sort', DAG, pos, visited)
 
     elif search_type == 'PRIM':
-        print("For prim's algorithm please enter number of nodes and edges,\nedges should be more than 2 times the number of nodes.")
+        print("For Prim's algorithm please enter number of nodes and edges,\nedges should be more than 2 times the number of nodes.")
         node_user, edge_user = get_data_for_mst_algos()
 
         G = create_weighted_graph(node_user, edge_user)
@@ -104,17 +105,28 @@ def search_and_visualize():
         visualize_prim(G, minimum_spanning_tree, node_colors, title="Prim's Algorithm")
 
     elif search_type == 'KRUSKAL':
-        print("For prim's algorithm please enter number of nodes and edges,\nedges should be more than 2 times the number of nodes.")
+        print("For Kruskal's algorithm please enter number of nodes and edges,\nedges should be more than 2 times the number of nodes.")
         node_user, edge_user = get_data_for_mst_algos()
 
         G = create_weighted_graph(node_user, edge_user)
         minimum_spanning_tree, node_colors = kruskal_algorithm(G)
         visualize_prim(G, minimum_spanning_tree, node_colors, title="Kruskal's Algorithm")
 
+    elif search_type == 'DIJKSTRA' or search_type == 'DIJ':
+        print("For Dijkstra's algorithm please enter number of nodes and edges,\nedges should be more than 2 times the number of nodes.")
+        node_user, edge_user = get_data_for_mst_algos()
+
+        G = create_weighted_graph(node_user, edge_user)
+        start_node = random.choice(list(G.nodes))
+        distances, previous_nodes, algorithm_state = dijkstra_algorithm(G, start_node)
+
+        # Use the corrected function with algorithm_state
+        visualize_dijkstra(G, distances, previous_nodes, start_node, algorithm_state, "Dijkstra's Algorithm")
+
     else:
         print("Invalid search type. Please choose BFS, DFS, TOP, PRIM or KRUSKAL.")
         
-    if search_type != 'PRIM' and search_type != 'KRUSKAL':
+    if search_type != 'PRIM' and search_type != 'KRUSKAL' and search_type != 'DIJKSTRA' and search_type != 'DIJ':
         visited.pop(0)
         print("Visited nodes:", visited)
 

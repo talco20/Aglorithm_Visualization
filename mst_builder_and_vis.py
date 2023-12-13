@@ -86,6 +86,62 @@ def visualize_prim(graph, edges, node_colors, title):
     #animation.save(f"{title}.gif", dpi=300, writer='pillow', fps=3)
     plt.show()
 
+def visualize_dijkstra(graph, distances, previous_nodes, start_node, algorithm_state, title="Dijkstra's Algorithm"):
+    pos = nx.spring_layout(graph)
+    fig, ax = plt.subplots(figsize=(8, 8))
+    fixed_title = f"{title}\nStart Node: {start_node}"
+    fig.suptitle(fixed_title, fontsize=16)
+
+    visited_nodes_accumulated = set()
+
+    def update(frame):
+        current_node, visited_nodes, shortest_paths = algorithm_state[frame]
+
+        # Add current visited nodes to the accumulated set
+        visited_nodes_accumulated.update(visited_nodes)
+
+        # Color the nodes based on whether they are part of the shortest path
+        node_colors = ['cyan' if node in visited_nodes_accumulated else 'g' for node in graph.nodes]
+
+        # Draw all edges in green
+        nx.draw(graph, pos, with_labels=True, font_weight='bold', ax=ax, node_color=node_colors)
+        
+        edge_labels = nx.get_edge_attributes(graph, "weight")
+        nx.draw_networkx_edge_labels(graph, pos, edge_labels)
+
+        # Draw red edges for the shortest paths
+        for node, path_info in shortest_paths.items():
+            if path_info is not None:
+                nx.draw_networkx_edges(graph, pos, edgelist=[(node, path_info)], edge_color='r', width=3.5)
+
+                # Add distance label next to the node
+                label_pos = pos[node] - 0.05
+                ax.text(
+                    label_pos[0], label_pos[1],
+                    f"{distances[node]}",
+                    color='blue',
+                    fontweight='bold',
+                    ha='center',
+                    va='center'
+                )
+
+        # Add text for the start node with updated distance
+        ax.text(
+            pos[start_node][0]-0.05, pos[start_node][1]-0.05,
+            f"0",
+            color='blue',
+            fontweight='bold',
+            ha='center',
+            va='center'
+        )
+
+    animation = FuncAnimation(fig, update, frames=len(algorithm_state), interval=1000, repeat=False)
+    # Delete the comment from the line below to save the animation as a gif
+    animation.save(f"{title}.gif", dpi=300, writer='pillow', fps=3)
+    plt.show()
+
+
+
 # Example usage:
 #num_nodes = 15
 #num_edges = 35

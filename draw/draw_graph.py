@@ -55,7 +55,8 @@ def visualize_search(order, title, G, pos, visited):
     
     # Delete the comment from the line below to save the animation as a gif
     #animation.save("animations/{}.gif".format(title), dpi=300, writer='pillow', fps=3)
-    plt.show()
+    #plt.show()
+    return ax1,ax2
 
 # Randomize the creation of edges
 def add_edges_rand(num):

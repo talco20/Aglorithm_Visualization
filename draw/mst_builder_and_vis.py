@@ -149,7 +149,7 @@ def visualize_dijkstra(graph, distances, previous_nodes, start_node, algorithm_s
 
     animation = FuncAnimation(fig, update, frames=len(algorithm_state), interval=1000, repeat=False)
     # Delete the comment from the line below to save the animation as a gif
-    animation.save("animations/{}1.gif".format(title), dpi=300, writer='pillow', fps=3)
+    #animation.save("animations/{}.gif".format(title), dpi=300, writer='pillow', fps=3)
     plt.show()
 
 

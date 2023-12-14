@@ -2,9 +2,17 @@ Aglorithm Visualization
 
 Algorithm class combined with Python Algorithm course becomes a visualization project of the studied algorithms.
 
+This project is still on going and getting more and more algorithm and code improvments.
+
+The project now can be visualize using CustomTkinter GUI library.
+
 Files:
 
-algo_vis.py - Main code to run the project.
+main.py - Main code to run the project with GUI from CustomTkinter library
+
+![GUI](https://github.com/talco20/Algorithm_Visualization/blob/main/animations/CostumTkinter%20GUI.jpg)
+
+algo_vis.py - Main code to run the project inside the IDE terminal.
 
 draw_graph.py - Draws the graph and has the core functions for the visualization.
 

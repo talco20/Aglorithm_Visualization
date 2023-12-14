@@ -16,6 +16,18 @@ def create_weighted_graph(num_nodes, num_edges):
     
     return G
 
+def create_weighted_graph_negatives(num_nodes, num_edges):
+    G = nx.Graph()
+    nodes = list(string.ascii_uppercase)[:num_nodes]
+    G.add_nodes_from(nodes)
+    
+    for _ in range(num_edges):
+        edge = random.sample(nodes, 2)
+        weight = random.randint(-5, 40)
+        G.add_edge(edge[0], edge[1], weight=weight)
+    
+    return G
+
 def visualize_prim(graph, edges, node_colors, title):
     
     fig, ax = plt.subplots(figsize=(6, 6))
@@ -83,7 +95,7 @@ def visualize_prim(graph, edges, node_colors, title):
 
     animation = FuncAnimation(fig, update, fargs=(edges,), frames=len(edges), interval=300, repeat=False)
     # Delete the comment from the line below to save the animation as a gif
-    #animation.save(f"{title}.gif", dpi=300, writer='pillow', fps=3)
+    #animation.save("animations/{}.gif".format(title), dpi=300, writer='pillow', fps=3)
     plt.show()
 
 def visualize_dijkstra(graph, distances, previous_nodes, start_node, algorithm_state, title="Dijkstra's Algorithm"):
@@ -137,7 +149,7 @@ def visualize_dijkstra(graph, distances, previous_nodes, start_node, algorithm_s
 
     animation = FuncAnimation(fig, update, frames=len(algorithm_state), interval=1000, repeat=False)
     # Delete the comment from the line below to save the animation as a gif
-    animation.save(f"{title}.gif", dpi=300, writer='pillow', fps=3)
+    #animation.save("animations/{}.gif".format(title), dpi=300, writer='pillow', fps=3)
     plt.show()
 
 

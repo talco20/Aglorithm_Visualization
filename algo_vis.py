@@ -1,11 +1,12 @@
-from dfs_algo import *
-from bfs_algo import *
-from top_sort import *
-from draw_graph import *  
-from mst_builder_and_vis import *
-from prims_only_graph import * 
-from kruskal_algo import *
-from dijkstra_algo import *
+from draw.draw_graph import *  
+from draw.mst_builder_and_vis import *
+from algorithms.dfs_algo import *
+from algorithms.bfs_algo import *
+from algorithms.top_sort import *
+from algorithms.prims_algo import * 
+from algorithms.kruskal_algo import *
+from algorithms.dijkstra_algo import *
+from algorithms.bellman_ford_algo_OnProgress import *
     
 def choose_graph_size(G, default_edges, type):
     search_size = input("If you want a small graph, enter S; for a big graph, enter B: ").upper()
@@ -62,71 +63,91 @@ def search_and_visualize():
     default_edges = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('B', 'E'), ('C', 'F'), ('C', 'G'), ('F', 'G'), ('E', 'G'),
                      ('B', 'G'), ('C', 'F'), ('B', 'H')]
     
-    search_type = input("Choose search type (BFS or DFS or TOP or PRIM or KRUSKAL or DIJKSTRA[DIJ]): ").upper()
+    while True:
+        try:
+            search_type = input("Choose search type (BFS or DFS or TOP or PRIM or KRUSKAL or DIJKSTRA[DIJ] or BELLMAN-FORD[BF]): ").upper()
 
-    if search_type == 'BFS':
-        G = nx.Graph()
-        pos = nx.spring_layout(G)
-        G = choose_graph_size(G, default_edges, 'BFS')
-        start_node = get_start_node(G)
-        print("The start node is: ", start_node)
-        pos = nx.spring_layout(G)  # Regenerate layout based on the updated graph
+            if search_type == 'BFS':
+                G = nx.Graph()
+                pos = nx.spring_layout(G)
+                G = choose_graph_size(G, default_edges, 'BFS')
+                start_node = get_start_node(G)
+                print("The start node is: ", start_node)
+                pos = nx.spring_layout(G)  # Regenerate layout based on the updated graph
 
-        order = order_bfs(G, start_node)
-        visualize_search(order, 'BFS Visualization', G, pos, visited)
+                order = order_bfs(G, start_node)
+                visualize_search(order, 'BFS Visualization', G, pos, visited)
+                break
 
-    elif search_type == 'DFS':
-        G = nx.Graph()
-        pos = nx.spring_layout(G)
-        G = choose_graph_size(G, default_edges, 'DFS')
-        start_node = get_start_node(G)
-        print("The start node is: ", start_node)
-        pos = nx.spring_layout(G)  # Regenerate layout based on the updated graph
+            elif search_type == 'DFS':
+                G = nx.Graph()
+                pos = nx.spring_layout(G)
+                G = choose_graph_size(G, default_edges, 'DFS')
+                start_node = get_start_node(G)
+                print("The start node is: ", start_node)
+                pos = nx.spring_layout(G)  # Regenerate layout based on the updated graph
 
-        order = order_dfs(G, start_node)
-        visualize_search(order, 'DFS Visualization', G, pos, visited)
+                order = order_dfs(G, start_node)
+                visualize_search(order, 'DFS Visualization', G, pos, visited)
+                break
 
-    elif search_type == 'TOP':
-        DAG = nx.DiGraph()
-        DAG = choose_graph_size(DAG, default_edges, 'TOP')
-        start_node = get_start_node(DAG)
-        print("The start node is: ", start_node)
-        pos = nx.spring_layout(DAG)
+            elif search_type == 'TOP':
+                DAG = nx.DiGraph()
+                DAG = choose_graph_size(DAG, default_edges, 'TOP')
+                start_node = get_start_node(DAG)
+                print("The start node is: ", start_node)
+                pos = nx.spring_layout(DAG)
 
-        order = top_sort(DAG, start_node)
-        visualize_search(order, 'Topological Sort', DAG, pos, visited)
+                order = top_sort(DAG, start_node)
+                visualize_search(order, 'Topological Sort', DAG, pos, visited)
+                break
 
-    elif search_type == 'PRIM':
-        print("For Prim's algorithm please enter number of nodes and edges,\nedges should be more than 2 times the number of nodes.")
-        node_user, edge_user = get_data_for_mst_algos()
+            elif search_type == 'PRIM':
+                print("For Prim's algorithm please enter number of nodes and edges,\nedges should be more than 2 times the number of nodes.")
+                node_user, edge_user = get_data_for_mst_algos()
 
-        G = create_weighted_graph(node_user, edge_user)
-        minimum_spanning_tree, node_colors = prim_algorithm(G)
-        visualize_prim(G, minimum_spanning_tree, node_colors, title="Prim's Algorithm")
+                G = create_weighted_graph(node_user, edge_user)
+                minimum_spanning_tree, node_colors = prim_algorithm(G)
+                visualize_prim(G, minimum_spanning_tree, node_colors, title="Prim's Algorithm")
+                break
 
-    elif search_type == 'KRUSKAL':
-        print("For Kruskal's algorithm please enter number of nodes and edges,\nedges should be more than 2 times the number of nodes.")
-        node_user, edge_user = get_data_for_mst_algos()
+            elif search_type == 'KRUSKAL':
+                print("For Kruskal's algorithm please enter number of nodes and edges,\nedges should be more than 2 times the number of nodes.")
+                node_user, edge_user = get_data_for_mst_algos()
 
-        G = create_weighted_graph(node_user, edge_user)
-        minimum_spanning_tree, node_colors = kruskal_algorithm(G)
-        visualize_prim(G, minimum_spanning_tree, node_colors, title="Kruskal's Algorithm")
+                G = create_weighted_graph(node_user, edge_user)
+                minimum_spanning_tree, node_colors = kruskal_algorithm(G)
+                visualize_prim(G, minimum_spanning_tree, node_colors, title="Kruskal's Algorithm")
+                break
 
-    elif search_type == 'DIJKSTRA' or search_type == 'DIJ':
-        print("For Dijkstra's algorithm please enter number of nodes and edges,\nedges should be more than 2 times the number of nodes.")
-        node_user, edge_user = get_data_for_mst_algos()
+            elif search_type == 'DIJKSTRA' or search_type == 'DIJ':
+                print("For Dijkstra's algorithm please enter number of nodes and edges,\nedges should be more than 2 times the number of nodes.")
+                node_user, edge_user = get_data_for_mst_algos()
 
-        G = create_weighted_graph(node_user, edge_user)
-        start_node = random.choice(list(G.nodes))
-        distances, previous_nodes, algorithm_state = dijkstra_algorithm(G, start_node)
+                G = create_weighted_graph(node_user, edge_user)
+                start_node = random.choice(list(G.nodes))
+                distances, previous_nodes, algorithm_state = dijkstra_algorithm(G, start_node)
 
-        # Use the corrected function with algorithm_state
-        visualize_dijkstra(G, distances, previous_nodes, start_node, algorithm_state, "Dijkstra's Algorithm")
+                # Use the corrected function with algorithm_state
+                visualize_dijkstra(G, distances, previous_nodes, start_node, algorithm_state, "Dijkstra's Algorithm")
+                break
 
-    else:
-        print("Invalid search type. Please choose BFS, DFS, TOP, PRIM or KRUSKAL.")
-        
-    if search_type != 'PRIM' and search_type != 'KRUSKAL' and search_type != 'DIJKSTRA' and search_type != 'DIJ':
+            elif search_type == 'BELLMAN-FORD' or search_type == 'BF':
+                print("For Bellman-Ford's algorithm please enter number of nodes and edges,\nedges should be more than 2 times the number of nodes.")
+                node_user, edge_user = get_data_for_mst_algos()
+
+                G = create_weighted_graph_negatives(node_user, edge_user)
+                start_node = random.choice(list(G.nodes))
+                distances, previous_nodes, algorithm_state = bellman_ford_algorithm(G, start_node)
+
+                # Use the corrected function with algorithm_state
+                visualize_dijkstra(G, distances, previous_nodes, start_node, algorithm_state, "Bellman-Ford's Algorithm")
+                break
+        except ValueError as ve:
+            print(f"ValueError: {ve}")
+            print("Invalid input. Please enter a valid value.")    
+    
+    if search_type != 'PRIM' and search_type != 'KRUSKAL' and search_type != 'DIJKSTRA' and search_type != 'DIJ' and search_type != 'BELLMAN-FORD' and search_type != 'BF':
         visited.pop(0)
         print("Visited nodes:", visited)
 
@@ -134,7 +155,7 @@ def search_and_visualize():
         print("The graph's specs:", DAG)
     else:     
         print("The graph's specs:", G)
-    
+        
     print("******************************************************************************************************************")
     
 # Call the function

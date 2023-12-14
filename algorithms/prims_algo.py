@@ -2,7 +2,7 @@
 # BigO - O(v^2)
 # Storage - O(v+e)
 
-from mst_builder_and_vis import *
+from draw.mst_builder_and_vis import *
 
 def prim_algorithm(graph):
     mst_edges = []

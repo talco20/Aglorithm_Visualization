@@ -48,4 +48,7 @@ Kruskal's algorithm Visualization
 Dijkstra's algorithm Visualization
 ![Dijkstra's Algorithm](https://github.com/talco20/Algorithm_Visualization/blob/main/animations/Dijkstra's%20Algorithm.gif)
 
+A Star algorithm Visualization
+![A Star algorithm](https://github.com/talco20/Algorithm_Visualization/blob/main/animations/aStar_Algorithm.gif)
+
 

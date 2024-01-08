@@ -10,7 +10,7 @@ Files:
 
 main.py - Main code to run the project with GUI from CustomTkinter library
 
-![GUI](https://github.com/talco20/Algorithm_Visualization/blob/main/animations/CostumTkinter%20GUI.jpg)
+![GUI](https://github.com/talco20/Algorithm_Visualization/blob/main/animations/CustomTkinterGUI.jpg)
 
 algo_vis.py - Main code to run the project inside the IDE terminal.
 
@@ -29,6 +29,8 @@ prim_only_graph.py - Has the Prim's algorithm.
 kruskal_algo.py - Has the Kruskal's algorithm.
 
 dijkstra_algo.py - Has the Dijksra's algorithm.
+
+aStar_algo.py - Has the A-Star algorithm.
 
 DFS Visualization
 ![DFS Visualization](https://github.com/talco20/Algorithm_Visualization/blob/main/animations/DFS%20Visualization.gif)
